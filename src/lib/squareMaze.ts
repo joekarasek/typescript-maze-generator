@@ -1,4 +1,4 @@
-import Cell from './cell';
+import Cell, { CellWalls } from './cell';
 
 export default class SquareMaze {
     rows: number;
@@ -63,6 +63,10 @@ export default class SquareMaze {
     size(): number {
         return this.getAll().length;
     };
+
+    getRenderData(): CellWalls[][] {
+        return this.cells.map(RowOfCells => RowOfCells.map( cell => cell.getCellWalls()));
+    }
 }
 
 // // Start: Distance/Dijkstra

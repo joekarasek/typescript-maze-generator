@@ -1,5 +1,12 @@
 type RelationshipPossibilities = "north" | "south" | "east" | "west";
 
+export interface CellWalls {
+    hasNorthWall: boolean;
+    hasSouthWall: boolean;
+    hasEastWall: boolean;
+    hasWestWall: boolean;
+}
+
 export default class Cell {
     row: number;
     col: number;
@@ -42,8 +49,11 @@ export default class Cell {
         }
     }
 
-    isLinked(queryCell: Cell): boolean {
-        return this.links.indexOf(queryCell) !== -1;
+    isLinked(queryCell: Cell | null): boolean {
+        if (queryCell) {
+            return this.links.indexOf(queryCell) !== -1;
+        }
+        return false;
     }
 
     // @todo refactor, as this assumes there is a neighborCell to sample and could loop forever if no neighbors are set
@@ -54,5 +64,14 @@ export default class Cell {
             index = Math.floor(Math.random() * 4);
         } while (!this.neighbors[keys[index]]);
         return this.neighbors[keys[index]];
+    }
+
+    getCellWalls(): CellWalls {
+        return {
+            hasSouthWall: !this.isLinked(this.neighbors['south']),
+            hasNorthWall: !this.isLinked(this.neighbors['north']),
+            hasEastWall: !this.isLinked(this.neighbors['east']),
+            hasWestWall: !this.isLinked(this.neighbors['west']),
+        }
     }
 }

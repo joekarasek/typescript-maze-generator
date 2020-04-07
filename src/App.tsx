@@ -5,6 +5,7 @@ import './App.css';
 function App() {
   const newMaze = new SquareMaze(10,10);
   console.log(newMaze);
+  console.table(newMaze.getRenderData());
   return (
     <div className="App">
       <header className="App-header">
