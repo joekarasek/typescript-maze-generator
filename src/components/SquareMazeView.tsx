@@ -20,7 +20,7 @@ export default function SquareMazeView({renderData}: SquareMazeViewProps): React
                         });
                         return (
                             <div key={`cell-${cellIndex}-${rowIndex}`} className={classes}>
-                                {cell.pathWeight}
+                                {cell.pathWeight || ' '}
                             </div>
                         );
                     })}

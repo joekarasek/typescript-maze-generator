@@ -1,5 +1,6 @@
 import Cell, { CellRenderData } from './cell';
 import { binaryTree, aldousBroder, sideWinder } from './pathGenerators';
+import {start} from "repl";
 
 export default class SquareMaze {
     rows: number;
@@ -69,7 +70,7 @@ export default class SquareMaze {
 
     getRenderData(): CellRenderData[][] {
         return this.cells.map(RowOfCells => RowOfCells.map( cell => cell.getCellRenderData()));
-    }
+    };
 
     buildPaths(method: string) {
         switch(method) {
@@ -84,21 +85,41 @@ export default class SquareMaze {
                 binaryTree(this);
                 break;
         }
-    }
+    };
 
-    // clearDistance = function() {
-    //     for (i=0; i<this.rows; i++) {
-    //         for (j=0; j<this.cols; j++) {
-    //             this.cells[i][j].distance = null;
-    //         }
-    //     }
-    // };
+    clearAllPathWeights(blackList: Cell[] = []): void {
+        this.cells.forEach(row => row.forEach(cell => {
+            if (!blackList.includes(cell)) {
+                cell.pathWeight = null
+            }
+        }));
+    };
+
+    findPath(targetCell: Cell | null, starterCell: Cell | null): void {
+        if (!targetCell || !starterCell) return;
+        this.clearAllPathWeights();
+        this.setDijkstra(targetCell);
+
+        const breadCrumbs: Cell[] = [starterCell];
+        let currentCell = starterCell;
+        while (currentCell !== targetCell) {
+            currentCell.links.forEach(cell => {
+                // @ts-ignore
+                if (cell.pathWeight < currentCell.pathWeight) {
+                    breadCrumbs.push(cell);
+                    currentCell = cell;
+                }
+            })
+        }
+
+        this.clearAllPathWeights(breadCrumbs);
+    }
 
     setDijkstra(rootCell: Cell | null): void {
         if (!rootCell) return;
-        rootCell.pathWeight = 0;
+        rootCell.pathWeight = 1;
         let frontier: Cell[] = [rootCell];
-        let newMaxWeight = 0;
+        let newMaxWeight = 1;
 
         while (frontier.length > 0) {
             let newFrontier: Cell[] = [];
@@ -118,38 +139,6 @@ export default class SquareMaze {
         }
         this.maxPathWeight = newMaxWeight;
     };
-}
 
-// // Start: Distance/Dijkstra
-//
-// Grid.prototype.clearDistance = function() {
-//     for (i=0; i<this.rows; i++) {
-//         for (j=0; j<this.cols; j++) {
-//             this.cells[i][j].distance = null;
-//         }
-//     }
-// };
-//
-// Grid.prototype.setDijkstra = function(rootCell) {
-//     rootCell.distance = 0;
-//     var frontier = [rootCell];
-//     var maxDistance = 0;
-//
-//     while (frontier.length > 0) {
-//         var newFrontier = [];
-//
-//         frontier.forEach(function(cell) {
-//             cell.links.forEach(function(linkedCell) {
-//                 if (linkedCell.distance === null) {
-//                     linkedCell.distance = cell.distance + 1;
-//                     newFrontier.push(linkedCell);
-//                 }
-//             });
-//             maxDistance = frontier[0].distance;
-//         });
-//         frontier = newFrontier;
-//     }
-//     this.maxDistance = maxDistance;
-// };
-//
-// exports.Grid = Grid;
+
+}
