@@ -23,7 +23,7 @@ export default class Cell {
         };
     }
 
-    addNeighbor(cell: Cell, relation: RelationshipPossibilities): void {
+    addNeighbor(cell: Cell | null, relation: RelationshipPossibilities): void {
         this.neighbors[relation] = cell;
     }
 

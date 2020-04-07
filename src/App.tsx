@@ -1,13 +1,10 @@
 import React from 'react';
-import Cell from './lib/cell';
+import SquareMaze from './lib/squareMaze';
 import './App.css';
 
 function App() {
-  const newCell = new Cell(1,1);
-  const secondCell = new Cell(2,2);
-  newCell.addNeighbor(secondCell, "north");
-  newCell.link(newCell.neighbors.north);
-  console.log({newCell, secondCell});
+  const newMaze = new SquareMaze(10,10);
+  console.log(newMaze);
   return (
     <div className="App">
       <header className="App-header">
