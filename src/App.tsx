@@ -1,25 +1,16 @@
 import React from 'react';
 import SquareMaze from './lib/squareMaze';
+import SquareMazeView from './components/SquareMazeView';
 import './App.css';
 
 function App() {
-  const newMaze = new SquareMaze(10,10);
+  const newMaze = new SquareMaze(20,20);
   console.log(newMaze);
   console.table(newMaze.getRenderData());
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <SquareMazeView renderData={newMaze.getRenderData()} />
       </header>
     </div>
   );

@@ -1,7 +1,7 @@
-import Cell from './cell';
+import SquareMaze from './squareMaze';
 
-export const binaryTree = (cells: Cell[]) => {
-    cells.forEach(function(cell) {
+export const binaryTree = (maze: SquareMaze) => {
+    maze.getAll().forEach(function(cell) {
         const choices = [];
         if (cell.neighbors.north) {
             choices.push(cell.neighbors.north);
@@ -16,4 +16,25 @@ export const binaryTree = (cells: Cell[]) => {
         }
 
     });
+}
+
+export const aldousBroder = (maze: SquareMaze) => {
+    let cell = maze.sample();
+    let unvisitedCells = maze.size() - 1;
+    let computationalSteps = 1;
+
+    while (unvisitedCells > 0) {
+        let neighbor = cell && cell.sampleNeighbor();
+
+        if (neighbor && neighbor.links.length === 0) {
+            // @ts-ignore
+            cell.link(neighbor);
+            unvisitedCells--;
+        }
+
+        cell = neighbor;
+        computationalSteps ++;
+    }
+
+    console.log(`Aldous Broder maze generation visited ${computationalSteps} cells before visiting all cells and completing`);
 }

@@ -1,5 +1,5 @@
 import Cell, { CellWalls } from './cell';
-import { binaryTree } from './pathGenerators';
+import { binaryTree, aldousBroder } from './pathGenerators';
 
 export default class SquareMaze {
     rows: number;
@@ -72,9 +72,13 @@ export default class SquareMaze {
 
     buildPaths(method: string) {
         switch(method) {
+            case 'Aldous Broder':
+                aldousBroder(this);
+                break;
             case 'binary tree':
             default:
-                binaryTree(this.getAll());
+                // binaryTree(this);
+                aldousBroder(this);
                 break;
         }
     }
