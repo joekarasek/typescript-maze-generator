@@ -1,10 +1,11 @@
-import Cell, { CellWalls } from './cell';
+import Cell, { CellRenderData } from './cell';
 import { binaryTree, aldousBroder, sideWinder } from './pathGenerators';
 
 export default class SquareMaze {
     rows: number;
     cols: number;
     cells: Cell[][];
+    maxPathWeight: number | null;
 
     constructor(rows: number, cols: number) {
         this.rows = rows;
@@ -12,6 +13,7 @@ export default class SquareMaze {
         this.cells = [];
         this.buildCells();
         this.setAllCellNeighbors();
+        this.maxPathWeight = null;
     }
 
     private buildCells(): void {
@@ -65,8 +67,8 @@ export default class SquareMaze {
         return this.getAll().length;
     };
 
-    getRenderData(): CellWalls[][] {
-        return this.cells.map(RowOfCells => RowOfCells.map( cell => cell.getCellWalls()));
+    getRenderData(): CellRenderData[][] {
+        return this.cells.map(RowOfCells => RowOfCells.map( cell => cell.getCellRenderData()));
     }
 
     buildPaths(method: string) {
@@ -83,6 +85,39 @@ export default class SquareMaze {
                 break;
         }
     }
+
+    // clearDistance = function() {
+    //     for (i=0; i<this.rows; i++) {
+    //         for (j=0; j<this.cols; j++) {
+    //             this.cells[i][j].distance = null;
+    //         }
+    //     }
+    // };
+
+    setDijkstra(rootCell: Cell | null): void {
+        if (!rootCell) return;
+        rootCell.pathWeight = 0;
+        let frontier: Cell[] = [rootCell];
+        let newMaxWeight = 0;
+
+        while (frontier.length > 0) {
+            let newFrontier: Cell[] = [];
+
+            frontier.forEach((cell) => {
+                cell.links.forEach((linkedCell) => {
+                    if (linkedCell.pathWeight === null) {
+                        // @ts-ignore
+                        let newFrontierWeight: number = cell.pathWeight + 1;
+                        linkedCell.pathWeight = newFrontierWeight;
+                        newFrontier.push(linkedCell);
+                        newMaxWeight = newFrontierWeight;
+                    }
+                });
+            });
+            frontier = newFrontier;
+        }
+        this.maxPathWeight = newMaxWeight;
+    };
 }
 
 // // Start: Distance/Dijkstra

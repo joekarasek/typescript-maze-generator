@@ -44,12 +44,16 @@
 
 .square-maze__cell {
   line-height: 0;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   background-color: white;
   border: solid 1px white;
   box-sizing: border-box;
   width: 20px;
   height: 20px;
+  color: black;
+  font-size: 8px;
 }
 
 .square-maze__cell--has-north-wall {

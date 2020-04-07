@@ -7,6 +7,8 @@ function App() {
   const [ renderMethod, setRenderMethod ] = useState('binary tree');
   const newMaze = new SquareMaze(20,20);
   newMaze.buildPaths(renderMethod);
+  const topLeftCell = newMaze.getCell(0, 0);
+  newMaze.setDijkstra(topLeftCell);
   return (
     <div className="App">
       <header className="App-header">

@@ -1,10 +1,11 @@
 type RelationshipPossibilities = "north" | "south" | "east" | "west";
 
-export interface CellWalls {
+export interface CellRenderData {
     hasNorthWall: boolean;
     hasSouthWall: boolean;
     hasEastWall: boolean;
     hasWestWall: boolean;
+    pathWeight: number | null;
 }
 
 export default class Cell {
@@ -17,6 +18,7 @@ export default class Cell {
         west: null | Cell,
         south: null | Cell
     };
+    pathWeight: number | null;
 
     constructor(row: number, col: number) {
         this.row = row;
@@ -28,6 +30,7 @@ export default class Cell {
             west: null,
             south: null
         };
+        this.pathWeight = null;
     }
 
     addNeighbor(cell: Cell | null, relation: RelationshipPossibilities): void {
@@ -66,12 +69,13 @@ export default class Cell {
         return this.neighbors[keys[index]];
     }
 
-    getCellWalls(): CellWalls {
+    getCellRenderData(): CellRenderData {
         return {
             hasSouthWall: !this.isLinked(this.neighbors['south']),
             hasNorthWall: !this.isLinked(this.neighbors['north']),
             hasEastWall: !this.isLinked(this.neighbors['east']),
             hasWestWall: !this.isLinked(this.neighbors['west']),
+            pathWeight: this.pathWeight,
         }
     }
 }
