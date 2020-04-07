@@ -1,5 +1,5 @@
 import Cell, { CellWalls } from './cell';
-import { binaryTree, aldousBroder } from './pathGenerators';
+import { binaryTree, aldousBroder, sideWinder } from './pathGenerators';
 
 export default class SquareMaze {
     rows: number;
@@ -12,7 +12,6 @@ export default class SquareMaze {
         this.cells = [];
         this.buildCells();
         this.setAllCellNeighbors();
-        this.buildPaths('binary tree');
     }
 
     private buildCells(): void {
@@ -75,10 +74,12 @@ export default class SquareMaze {
             case 'Aldous Broder':
                 aldousBroder(this);
                 break;
+            case 'side winder':
+                sideWinder(this);
+                break;
             case 'binary tree':
             default:
-                // binaryTree(this);
-                aldousBroder(this);
+                binaryTree(this);
                 break;
         }
     }
