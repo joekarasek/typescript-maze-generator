@@ -1,4 +1,5 @@
 import Cell, { CellWalls } from './cell';
+import { binaryTree } from './pathGenerators';
 
 export default class SquareMaze {
     rows: number;
@@ -11,6 +12,7 @@ export default class SquareMaze {
         this.cells = [];
         this.buildCells();
         this.setAllCellNeighbors();
+        this.buildPaths('binary tree');
     }
 
     private buildCells(): void {
@@ -66,6 +68,15 @@ export default class SquareMaze {
 
     getRenderData(): CellWalls[][] {
         return this.cells.map(RowOfCells => RowOfCells.map( cell => cell.getCellWalls()));
+    }
+
+    buildPaths(method: string) {
+        switch(method) {
+            case 'binary tree':
+            default:
+                binaryTree(this.getAll());
+                break;
+        }
     }
 }
 
