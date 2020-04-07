@@ -23,7 +23,7 @@ export const aldousBroder = (maze: SquareMaze) => {
     let unvisitedCells = maze.size() - 1;
     let computationalSteps = 1;
 
-    while (unvisitedCells > 0) {
+    while (unvisitedCells > 0 && computationalSteps < 25000) {
         let neighbor = cell && cell.sampleNeighbor();
 
         if (neighbor && neighbor.links.length === 0) {

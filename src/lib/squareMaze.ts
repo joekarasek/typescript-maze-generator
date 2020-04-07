@@ -49,8 +49,8 @@ export default class SquareMaze {
     }
 
     sample(): Cell | null {
-        const randomRow: number = Math.floor((Math.random() * this.rows) + 1);
-        const randomCol: number = Math.floor((Math.random() * this.cols) + 1);
+        const randomRow: number = Math.floor((Math.random() * this.rows));
+        const randomCol: number = Math.floor((Math.random() * this.cols));
         return this.getCell(randomRow, randomCol);
     };
 
