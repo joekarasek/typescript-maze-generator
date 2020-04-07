@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/typescript-maze-generator/static/css/main.2af522b5.chunk.css",
+    "main.js": "/typescript-maze-generator/static/js/main.8abedfdb.chunk.js",
+    "main.js.map": "/typescript-maze-generator/static/js/main.8abedfdb.chunk.js.map",
+    "runtime-main.js": "/typescript-maze-generator/static/js/runtime-main.160f2cd7.js",
+    "runtime-main.js.map": "/typescript-maze-generator/static/js/runtime-main.160f2cd7.js.map",
+    "static/js/2.ae899fd7.chunk.js": "/typescript-maze-generator/static/js/2.ae899fd7.chunk.js",
+    "static/js/2.ae899fd7.chunk.js.map": "/typescript-maze-generator/static/js/2.ae899fd7.chunk.js.map",
+    "index.html": "/typescript-maze-generator/index.html",
+    "precache-manifest.5368975e33898e0fc620f0e2f836fb5d.js": "/typescript-maze-generator/precache-manifest.5368975e33898e0fc620f0e2f836fb5d.js",
+    "service-worker.js": "/typescript-maze-generator/service-worker.js",
+    "static/css/main.2af522b5.chunk.css.map": "/typescript-maze-generator/static/css/main.2af522b5.chunk.css.map",
+    "static/js/2.ae899fd7.chunk.js.LICENSE.txt": "/typescript-maze-generator/static/js/2.ae899fd7.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.160f2cd7.js",
+    "static/js/2.ae899fd7.chunk.js",
+    "static/css/main.2af522b5.chunk.css",
+    "static/js/main.8abedfdb.chunk.js"
+  ]
+}
