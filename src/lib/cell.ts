@@ -6,6 +6,7 @@ export interface CellRenderData {
     hasEastWall: boolean;
     hasWestWall: boolean;
     pathWeight: number | null;
+    label: string;
 }
 
 export default class Cell {
@@ -19,6 +20,7 @@ export default class Cell {
         south: null | Cell
     };
     pathWeight: number | null;
+    label: string;
 
     constructor(row: number, col: number) {
         this.row = row;
@@ -31,6 +33,7 @@ export default class Cell {
             south: null
         };
         this.pathWeight = null;
+        this.label = '';
     }
 
     addNeighbor(cell: Cell | null, relation: RelationshipPossibilities): void {
@@ -87,6 +90,7 @@ export default class Cell {
             hasEastWall: !this.isLinked(this.neighbors['east']),
             hasWestWall: !this.isLinked(this.neighbors['west']),
             pathWeight: this.pathWeight,
+            label: this.label,
         }
     }
 }

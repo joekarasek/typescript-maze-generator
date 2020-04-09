@@ -1,6 +1,5 @@
 import Cell, { CellRenderData } from './cell';
-import { binaryTree, aldousBroder, sideWinder, huntAndKill, recursiveBacktracker } from './pathGenerators';
-import {start} from "repl";
+import { binaryTree, aldousBroder, sideWinder, huntAndKill, recursiveBacktracker, clearAllPaths } from './pathGenerators';
 
 export default class SquareMaze {
     rows: number;
@@ -73,6 +72,7 @@ export default class SquareMaze {
     };
 
     buildPaths(method: string) {
+        this.clearAllLabels();
         switch(method) {
             case 'Aldous Broder':
                 aldousBroder(this);
@@ -87,8 +87,11 @@ export default class SquareMaze {
                 recursiveBacktracker(this);
                 break;
             case 'binary tree':
-            default:
                 binaryTree(this);
+                break;
+            case 'reset':
+            default:
+                clearAllPaths(this);
                 break;
         }
     };
@@ -101,9 +104,12 @@ export default class SquareMaze {
         }));
     };
 
-    findPath(targetCell: Cell | null, starterCell: Cell | null): void {
+    clearAllLabels(blackList: Cell[] = []): void {
+        this.cells.forEach(row => row.forEach(cell => cell.label = ''));
+    };
+
+    findPath(targetCell: Cell | null, starterCell: Cell | null): Cell[] | void {
         if (!targetCell || !starterCell) return;
-        this.clearAllPathWeights();
         this.setDijkstra(targetCell);
 
         const breadCrumbs: Cell[] = [starterCell];
@@ -118,7 +124,12 @@ export default class SquareMaze {
             })
         }
 
-        this.clearAllPathWeights(breadCrumbs);
+        return breadCrumbs;
+    }
+
+    markPath(path: Cell[]) {
+        this.clearAllLabels();
+        path.forEach(cell => cell.label = '•');
     }
 
     findLongestPath():void {
@@ -130,7 +141,9 @@ export default class SquareMaze {
         this.setDijkstra(pathStartCell);
         // @ts-ignore
         const pathEndCell = this.getAll().reduce((previousCell, currentCell) => previousCell.pathWeight > currentCell.pathWeight ? previousCell : currentCell)
-        this.findPath(pathStartCell, pathEndCell);
+        const path = this.findPath(pathStartCell, pathEndCell) || [];
+        // this.clearAllPathWeights(path);
+        this.markPath(path);
     }
 
     setDijkstra(rootCell: Cell | null): void {
@@ -157,6 +170,4 @@ export default class SquareMaze {
         }
         this.maxPathWeight = newMaxWeight;
     };
-
-
 }

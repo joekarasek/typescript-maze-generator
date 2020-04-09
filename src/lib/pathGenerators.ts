@@ -116,3 +116,6 @@ export const recursiveBacktracker = (maze: SquareMaze) => {
     }
 };
 
+export const clearAllPaths = (maze: SquareMaze) => {
+    maze.getAll().forEach(cell => cell.links = []);
+};

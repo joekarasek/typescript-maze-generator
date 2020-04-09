@@ -13,6 +13,7 @@ export default function SquareMazeView({renderData}: SquareMazeViewProps): React
                 <div key={`row-${rowIndex}`} className="square-maze__row">
                     {row.map((cell, cellIndex) => {
                         const classes = classNames("square-maze__cell", {
+                            "square-maze__cell--has-label": cell.label,
                             "square-maze__cell--has-north-wall": cell.hasNorthWall,
                             "square-maze__cell--has-south-wall": cell.hasSouthWall,
                             "square-maze__cell--has-east-wall": cell.hasEastWall,
@@ -20,7 +21,7 @@ export default function SquareMazeView({renderData}: SquareMazeViewProps): React
                         });
                         return (
                             <div key={`cell-${cellIndex}-${rowIndex}`} className={classes}>
-                                {cell.pathWeight || ' '}
+                                <span style={{ transitionDelay: cell.pathWeight ? `${cell.pathWeight / 16}s` : '0s'}}>{cell.label || ' '}</span>
                             </div>
                         );
                     })}
