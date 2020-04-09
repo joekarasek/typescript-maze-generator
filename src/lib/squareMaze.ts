@@ -115,6 +115,18 @@ export default class SquareMaze {
         this.clearAllPathWeights(breadCrumbs);
     }
 
+    findLongestPath():void {
+        let initialCell = this.getCell(0,0);
+        this.setDijkstra(initialCell);
+        // @ts-ignore
+        const pathStartCell = this.getAll().reduce((previousCell, currentCell) => previousCell.pathWeight > currentCell.pathWeight ? previousCell : currentCell);
+        this.clearAllPathWeights();
+        this.setDijkstra(pathStartCell);
+        // @ts-ignore
+        const pathEndCell = this.getAll().reduce((previousCell, currentCell) => previousCell.pathWeight > currentCell.pathWeight ? previousCell : currentCell)
+        this.findPath(pathStartCell, pathEndCell);
+    }
+
     setDijkstra(rootCell: Cell | null): void {
         if (!rootCell) return;
         rootCell.pathWeight = 1;

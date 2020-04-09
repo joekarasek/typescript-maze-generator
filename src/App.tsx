@@ -7,9 +7,7 @@ function App() {
   const [ renderMethod, setRenderMethod ] = useState('binary tree');
   const newMaze = new SquareMaze(30,30);
   newMaze.buildPaths(renderMethod);
-  const topLeftCell = newMaze.getCell(0, 0);
-  const bottomRightCell = newMaze.getCell(29, 29);
-  newMaze.findPath(topLeftCell, bottomRightCell);
+  newMaze.findLongestPath();
   // newMaze.setDijkstra(topLeftCell);
   return (
     <div className="App">
