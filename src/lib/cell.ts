@@ -37,6 +37,17 @@ export default class Cell {
         this.neighbors[relation] = cell;
     }
 
+    getUnvisitedNeighbors(): Cell[] {
+        const unvisitedNeighbors = [];
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        for (let [position, cell] of Object.entries(this.neighbors)) {
+            if (cell && cell?.links.length === 0) {
+                unvisitedNeighbors.push(cell);
+            }
+        }
+        return unvisitedNeighbors;
+    }
+
     link(cell: Cell | null): void {
         if (cell && this.links.indexOf(cell) === -1) {
             this.links.push(cell);

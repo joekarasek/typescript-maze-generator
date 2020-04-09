@@ -62,3 +62,34 @@ export const sideWinder = (maze: SquareMaze, param: number = 0.5) => {
         });
     });
 };
+
+export const huntAndKill = (maze: SquareMaze) => {
+    let currentCell = maze.getCell(0,0);
+
+    while (currentCell) {
+        const unvisitedNeighbors = currentCell?.getUnvisitedNeighbors();
+        if (unvisitedNeighbors?.length) {
+            let newCell = unvisitedNeighbors[Math.floor(Math.random() * unvisitedNeighbors.length)];
+            currentCell?.link(newCell);
+            currentCell = newCell;
+        } else {
+            currentCell = null;
+            maze.getAll().some(cell => {
+                const neighborsWithLinks = Object.entries(cell.neighbors).filter(neighbor => {
+                    if (neighbor) {
+                        // @ts-ignore
+                        return neighbor[1]?.links.length > 0;
+                    }
+                    return false;
+                });
+                if (cell.links.length === 0 && neighborsWithLinks.length > 0) {
+                    currentCell = cell;
+                    const newCellToLink = neighborsWithLinks[Math.floor( Math.random() * neighborsWithLinks.length)];
+                    currentCell.link(newCellToLink[1]);
+                    return true;
+                }
+                return false;
+            })
+        }
+    }
+};

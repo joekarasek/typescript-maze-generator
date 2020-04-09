@@ -1,5 +1,5 @@
 import Cell, { CellRenderData } from './cell';
-import { binaryTree, aldousBroder, sideWinder } from './pathGenerators';
+import { binaryTree, aldousBroder, sideWinder, huntAndKill } from './pathGenerators';
 import {start} from "repl";
 
 export default class SquareMaze {
@@ -79,6 +79,9 @@ export default class SquareMaze {
                 break;
             case 'side winder':
                 sideWinder(this);
+                break;
+            case 'hunt and kill':
+                huntAndKill(this);
                 break;
             case 'binary tree':
             default:

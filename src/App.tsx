@@ -17,6 +17,7 @@ function App() {
               <button onClick={() => setRenderMethod('Aldous Broder')}>Aldous Broder</button>
               <button onClick={() => setRenderMethod('binary tree')}>Binary Tree</button>
               <button onClick={() => setRenderMethod('side winder')}>Side Winder</button>
+              <button onClick={() => setRenderMethod('hunt and kill')}>Hunt and Kill</button>
           </div>
       </header>
     </div>
