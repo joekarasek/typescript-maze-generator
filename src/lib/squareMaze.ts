@@ -1,5 +1,5 @@
 import Cell, { CellRenderData } from './cell';
-import { binaryTree, aldousBroder, sideWinder, huntAndKill } from './pathGenerators';
+import { binaryTree, aldousBroder, sideWinder, huntAndKill, recursiveBacktracker } from './pathGenerators';
 import {start} from "repl";
 
 export default class SquareMaze {
@@ -82,6 +82,9 @@ export default class SquareMaze {
                 break;
             case 'hunt and kill':
                 huntAndKill(this);
+                break;
+            case 'recursive backtracker':
+                recursiveBacktracker(this);
                 break;
             case 'binary tree':
             default:

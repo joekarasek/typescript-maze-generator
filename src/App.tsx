@@ -18,6 +18,7 @@ function App() {
               <button onClick={() => setRenderMethod('binary tree')}>Binary Tree</button>
               <button onClick={() => setRenderMethod('side winder')}>Side Winder</button>
               <button onClick={() => setRenderMethod('hunt and kill')}>Hunt and Kill</button>
+              <button onClick={() => setRenderMethod('recursive backtracker')}>Recursive Backtracker</button>
           </div>
       </header>
     </div>

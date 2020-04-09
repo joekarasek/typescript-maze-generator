@@ -93,3 +93,26 @@ export const huntAndKill = (maze: SquareMaze) => {
         }
     }
 };
+
+export const recursiveBacktracker = (maze: SquareMaze) => {
+    const path: (Cell | null)[] = [];
+    const startingCell = maze.sample();
+    if (startingCell instanceof Cell) {
+        path.push(startingCell);
+    }
+
+    while (path.length) {
+        const current = path[path.length - 1];
+        // @ts-ignore
+        const neighborsWithOutLinks = Object.entries(current.neighbors).filter(neighbor => neighbor[1]?.links.length === 0);
+        if (neighborsWithOutLinks.length) {
+            const newCellToLink = neighborsWithOutLinks[Math.floor( Math.random() * neighborsWithOutLinks.length)];
+            // @ts-ignore
+            current.link(newCellToLink[1]);
+            path.push(newCellToLink[1]);
+        } else {
+            path.pop();
+        }
+    }
+};
+
