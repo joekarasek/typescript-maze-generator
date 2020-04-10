@@ -21,7 +21,7 @@ export default function SquareMazeView({renderData}: SquareMazeViewProps): React
                         });
                         return (
                             <div key={`cell-${cellIndex}-${rowIndex}`} className={classes}>
-                                <span style={{ transitionDelay: cell.pathWeight ? `${cell.pathWeight / 16}s` : '0s'}}>{cell.label || ' '}</span>
+                                <span style={{ transitionDelay: (cell.pathWeight && cell.label === '•') ? `${cell.pathWeight / 16}s` : '0s'}}>{cell.label || ' '}</span>
                             </div>
                         );
                     })}

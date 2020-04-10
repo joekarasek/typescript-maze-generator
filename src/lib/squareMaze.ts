@@ -73,6 +73,7 @@ export default class SquareMaze {
 
     buildPaths(method: string) {
         this.clearAllLabels();
+        this.clearAllPathWeights();
         switch(method) {
             case 'Aldous Broder':
                 aldousBroder(this);
@@ -94,6 +95,7 @@ export default class SquareMaze {
                 clearAllPaths(this);
                 break;
         }
+        this.drawStartAndFinish();
     };
 
     clearAllPathWeights(blackList: Cell[] = []): void {
@@ -132,7 +134,7 @@ export default class SquareMaze {
         path.forEach(cell => cell.label = '•');
     }
 
-    findLongestPath():void {
+    findLongestPath(): Cell[] {
         let initialCell = this.getCell(0,0);
         this.setDijkstra(initialCell);
         // @ts-ignore
@@ -141,9 +143,17 @@ export default class SquareMaze {
         this.setDijkstra(pathStartCell);
         // @ts-ignore
         const pathEndCell = this.getAll().reduce((previousCell, currentCell) => previousCell.pathWeight > currentCell.pathWeight ? previousCell : currentCell)
-        const path = this.findPath(pathStartCell, pathEndCell) || [];
-        // this.clearAllPathWeights(path);
-        this.markPath(path);
+        return this.findPath(pathStartCell, pathEndCell) || [];
+    }
+
+    drawLongestPath(): void {
+        this.markPath(this.findLongestPath());
+    }
+
+    drawStartAndFinish(): void {
+        const longestPath = this.findLongestPath();
+        longestPath[0].label = "S";
+        longestPath[longestPath.length - 1].label = "F";
     }
 
     setDijkstra(rootCell: Cell | null): void {

@@ -3,7 +3,7 @@ import SquareMaze from './lib/squareMaze';
 import SquareMazeView from './components/SquareMazeView';
 import './App.css';
 
-const newMaze = new SquareMaze(30,30);
+let newMaze = new SquareMaze(40,40);
 
 function App() {
   const [ renderMethod, setRenderMethod ] = useState('binary tree');
@@ -31,9 +31,36 @@ function App() {
           <div className="buttons">
               <button onClick={() => {
                   newMaze.clearAllLabels();
-                  newMaze.findLongestPath();
+                  newMaze.drawLongestPath();
                   setMazeRenderData(newMaze.getRenderData());
-              }} >Find Longest Path</button>
+              }} >Solve</button>
+              <button onClick={() => {
+                  newMaze.clearAllLabels();
+                  newMaze.drawStartAndFinish();
+                  setMazeRenderData(newMaze.getRenderData());
+              }} >Clear</button>
+          </div>
+          <div className="buttons">
+              <button onClick={() => {
+                  newMaze = new SquareMaze(10, 10);
+                  newMaze.buildPaths(renderMethod);
+                  setMazeRenderData(newMaze.getRenderData());
+              }} >10 X 10</button>
+              <button onClick={() => {
+                  newMaze = new SquareMaze(20, 20);
+                  newMaze.buildPaths(renderMethod);
+                  setMazeRenderData(newMaze.getRenderData());
+              }} >20 X 20</button>
+              <button onClick={() => {
+                  newMaze = new SquareMaze(30, 30);
+                  newMaze.buildPaths(renderMethod);
+                  setMazeRenderData(newMaze.getRenderData());
+              }} >30 X 30</button>
+              <button onClick={() => {
+                  newMaze = new SquareMaze(40, 40);
+                  newMaze.buildPaths(renderMethod);
+                  setMazeRenderData(newMaze.getRenderData());
+              }} >40 X 40</button>
           </div>
       </header>
     </div>
